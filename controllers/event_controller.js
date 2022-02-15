@@ -1,14 +1,13 @@
+// DEPENDENCIES
 const events = require("express").Router();
-const { Model } = require("sequelize/types");
 const db = require("../models");
 const { Event } = db;
 const { Op } = require("sequelize");
-
 // FIND ALL EVENTS
 events.get("/", async (req, res) => {
   try {
     const foundEvents = await Events.findAll({
-      order: [["available_start_time", "ASC"]],
+      order: [["date", "ASC"]],
       where: {
         name: { [Op.like]: "%${req.query.name ? req.query.name: ''}%" },
       },
